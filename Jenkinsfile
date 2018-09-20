@@ -12,7 +12,6 @@ buildTestContainer(podTemplate: podTemplate,
                    version: version,
                    test_cmd: test_cmd,
                    build_root: build_root,
-                   credentials: credentials,
                    docker_registry: 'docker.io',
                    docker_namespace: 'jjstuart79')
 
