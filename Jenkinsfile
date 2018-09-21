@@ -3,6 +3,9 @@ def version = '0.0.1'
 def test_cmd = "echo testing..."
 def image_name = 'fedora'
 def build_root = "Dockerfiles/${image_name}"
+def credentials = [UsernamePasswordMultiBinding(credentialsId: '0683f1d7-ca46-4655-9557-f2616609fda8',
+                                                usernameVariable: 'DOCKER_USERNAME',
+                                                passwordVariable: 'DOCKER_PASSWORD')]
 
 podTemplate = [containers: containers,
                docker_repo_url: '172.30.1.1:5000',
@@ -16,5 +19,6 @@ buildTestContainer(podTemplateProps: podTemplate,
                    build_root: build_root,
                    docker_registry: 'docker.io',
                    image_name: image_name,
-                   docker_namespace: 'jjstuart79')
+                   docker_namespace: 'jjstuart79',
+                   credentials: credentials)
 
