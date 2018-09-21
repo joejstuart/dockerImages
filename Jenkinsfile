@@ -3,7 +3,7 @@ def version = '0.0.1'
 def test_cmd = "echo testing..."
 def image_name = 'fedora'
 def build_root = "Dockerfiles/${image_name}"
-def credentials = [UsernamePasswordMultiBinding(credentialsId: '0683f1d7-ca46-4655-9557-f2616609fda8',
+def credentials = [usernamePassword(credentialsId: '0683f1d7-ca46-4655-9557-f2616609fda8',
                                                 usernameVariable: 'DOCKER_USERNAME',
                                                 passwordVariable: 'DOCKER_PASSWORD')]
 
