@@ -1,8 +1,6 @@
 def containers = ['ansible-executor']
 def version = '0.0.1'
-def test_cmd = """
-echo testing...
-"""
+def test_cmd = "echo testing..."
 def image_name = 'fedora'
 def build_root = "Dockerfiles/${image_name}"
 
