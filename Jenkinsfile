@@ -7,6 +7,7 @@ def credentials = [usernamePassword(credentialsId: 'contra-sample-project-docker
                                                 usernameVariable: 'DOCKER_USERNAME',
                                                 passwordVariable: 'DOCKER_PASSWORD')]
 
+modifyArgs = [owner: '1000:0', items: [['blah', '/tmp'], ['test', '/tmp']]]
 podTemplate = [containers: containers,
                docker_repo_url: '172.30.1.1:5000',
                openshift_namespace: 'contra-sample-project',
@@ -20,5 +21,6 @@ buildTestContainer(podTemplateProps: podTemplate,
                    image_name: image_name,
                    send_metrics: false,
                    docker_namespace: 'jjstuart79',
-                   credentials: credentials)
+                   credentials: credentials,
+                   modify_args: modifyArgs)
 
