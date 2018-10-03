@@ -23,7 +23,7 @@ podTemplate = [containers: containers,
 
 
 
-deployOpenShiftTemplate(podTemplateProps) {
+deployOpenShiftTemplate(podTemplate) {
     ciPipeline(sendMetrics: false, decorateBuild: decoratePRBuild()) {
 
         buildTestContainer(test_cmd: test_cmd,
