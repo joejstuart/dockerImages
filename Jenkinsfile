@@ -23,19 +23,22 @@ podTemplate = [containers: containers,
 
 
 
-buildTestContainer(podTemplateProps: podTemplate,
-                   test_cmd: test_cmd,
-                   build_root: build_root,
-                   image_name: image_name,
-                   send_metrics: false,
-                   docker_namespace: 'jjstuart79',
-                   versions: container_versions,
-                   credentials: credentials)
+deployOpenShiftTemplate(podTemplateProps) {
+    ciPipeline(sendMetrics: false, decorateBuild: decoratePRBuild()) {
 
-if (linchpin_version) {
-    testRelease(installCmd: "echo installing...",
-                verifyCmd: "echo verifying...",
-                repo: 'joejstuart/dockerImages',
-                version: linchpin_version)
+        buildTestContainer(test_cmd: test_cmd,
+                           build_root: build_root,
+                           image_name: image_name,
+                           docker_namespace: 'jjstuart79',
+                           credentials: credentials)
+
+        if (linchpin_version) {
+            testRelease(installCmd: "echo installing...",
+                        verifyCmd: "echo verifying...",
+                        repo: 'joejstuart/dockerImages',
+                        version: linchpin_version)
+        }
+
+    }
 }
 
