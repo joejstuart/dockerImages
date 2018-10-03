@@ -32,7 +32,7 @@ buildTestContainer(podTemplateProps: podTemplate,
                    versions: container_versions,
                    credentials: credentials)
 
-if (versions)
+if (linchpin_version) {
     testRelease(installCmd: "echo installing...",
                 verifyCmd: "echo verifying...",
                 repo: 'joejstuart/dockerImages',
