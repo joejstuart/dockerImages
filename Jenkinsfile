@@ -26,6 +26,15 @@ podTemplate = [containers: containers,
 deployOpenShiftTemplate(podTemplate) {
     ciPipeline(sendMetrics: false, decorateBuild: decoratePRBuild()) {
 
+        if (linchpin_version) {
+            testRelease(installCmd: "echo installing...",
+                        verifyCmd: "echo verifying...",
+                        repo: 'joejstuart/dockerImages',
+                        version: linchpin_version)
+        }
+
+        // add linchpin version
+        // linchpin version will either be latest/from source
         buildTestContainer(test_cmd: test_cmd,
                            build_root: build_root,
                            image_name: image_name,
@@ -33,12 +42,6 @@ deployOpenShiftTemplate(podTemplate) {
                            credentials: credentials,
                            buildContainer: 'ansible-executor')
 
-        if (linchpin_version) {
-            testRelease(installCmd: "echo installing...",
-                        verifyCmd: "echo verifying...",
-                        repo: 'joejstuart/dockerImages',
-                        version: linchpin_version)
-        }
 
     }
 }
