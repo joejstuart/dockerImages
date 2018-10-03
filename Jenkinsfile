@@ -23,14 +23,15 @@ podTemplate = [containers: containers,
 
 
 
-deployOpenShiftTemplate(podTemplateProps) {
+deployOpenShiftTemplate(podTemplate) {
     ciPipeline(sendMetrics: false, decorateBuild: decoratePRBuild()) {
 
         buildTestContainer(test_cmd: test_cmd,
                            build_root: build_root,
                            image_name: image_name,
                            docker_namespace: 'jjstuart79',
-                           credentials: credentials)
+                           credentials: credentials,
+                           buildContainer: 'ansible-executor')
 
         if (linchpin_version) {
             testRelease(installCmd: "echo installing...",
