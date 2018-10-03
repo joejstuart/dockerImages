@@ -1,3 +1,10 @@
+def container_versions = null
+def linchpin_version = null
+if (env.TAG_NAME) {
+    container_versions = ['latest', env.TAG_NAME]
+    linchpin_version = env.TAG_NAME
+}
+
 def containers = ['ansible-executor']
 def test_cmd = "echo testing..."
 def image_name = 'fedora'
@@ -5,6 +12,7 @@ def build_root = "Dockerfiles/${image_name}"
 def credentials = [usernamePassword(credentialsId: 'contra-sample-project-joejstuart-github',
                                                 usernameVariable: 'DOCKER_USERNAME',
                                                 passwordVariable: 'DOCKER_PASSWORD')]
+
 
 podTemplate = [containers: containers,
                docker_repo_url: '172.30.1.1:5000',
@@ -21,12 +29,13 @@ buildTestContainer(podTemplateProps: podTemplate,
                    image_name: image_name,
                    send_metrics: false,
                    docker_namespace: 'jjstuart79',
+                   versions: container_versions,
                    credentials: credentials)
 
-if (env.TAG_NAME) {
+if (versions)
     testRelease(installCmd: "echo installing...",
                 verifyCmd: "echo verifying...",
                 repo: 'joejstuart/dockerImages',
-                version: env.TAG_NAME)
+                version: linchpin_version)
 }
 
