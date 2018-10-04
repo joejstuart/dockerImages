@@ -30,7 +30,8 @@ deployOpenShiftTemplate(podTemplate) {
             testRelease(installCmd: "echo installing...",
                         verifyCmd: "echo verifying...",
                         repo: 'joejstuart/dockerImages',
-                        version: linchpin_version)
+                        version: linchpin_version,
+                        credentials: credentials)
         }
 
         // add linchpin version
