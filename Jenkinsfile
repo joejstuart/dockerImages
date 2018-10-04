@@ -1,9 +1,4 @@
-def container_versions = null
-def linchpin_version = null
-if (env.TAG_NAME) {
-    container_versions = ['latest', env.TAG_NAME]
-    linchpin_version = env.TAG_NAME
-}
+def linchpin_version = env.TAG_NAME
 
 def containers = ['ansible-executor']
 def test_cmd = "echo testing..."
@@ -26,23 +21,31 @@ podTemplate = [containers: containers,
 deployOpenShiftTemplate(podTemplate) {
     ciPipeline(sendMetrics: false, decorateBuild: decoratePRBuild()) {
 
+
+        def release = 'latest'
         if (linchpin_version) {
             testRelease(installCmd: "echo installing...",
                         verifyCmd: "echo verifying...",
                         repo: 'joejstuart/dockerImages',
                         version: linchpin_version,
                         credentials: credentials)
+            release = linchpin_version
         }
 
         // add linchpin version
         // linchpin version will either be latest/source/version number
+        // on every run, build latest with the PR version
         buildTestContainer(test_cmd: test_cmd,
                            build_root: build_root,
                            image_name: image_name,
                            docker_namespace: 'jjstuart79',
                            credentials: credentials,
                            buildContainer: 'ansible-executor',
-                           release: 'latest')
+                           release: release)
+
+        // call linchpin test job
+        // review 
+        // [merge] to develop, push container to latest
 
 
     }
