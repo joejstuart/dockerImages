@@ -35,13 +35,14 @@ deployOpenShiftTemplate(podTemplate) {
         }
 
         // add linchpin version
-        // linchpin version will either be latest/from source
+        // linchpin version will either be latest/source/version number
         buildTestContainer(test_cmd: test_cmd,
                            build_root: build_root,
                            image_name: image_name,
                            docker_namespace: 'jjstuart79',
                            credentials: credentials,
-                           buildContainer: 'ansible-executor')
+                           buildContainer: 'ansible-executor'
+                           release: 'latest')
 
 
     }
