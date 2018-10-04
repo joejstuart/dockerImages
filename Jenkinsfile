@@ -41,7 +41,7 @@ deployOpenShiftTemplate(podTemplate) {
                            image_name: image_name,
                            docker_namespace: 'jjstuart79',
                            credentials: credentials,
-                           buildContainer: 'ansible-executor'
+                           buildContainer: 'ansible-executor',
                            release: 'latest')
 
 
