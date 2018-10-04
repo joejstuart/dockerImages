@@ -10,8 +10,8 @@ def test_cmd = "echo testing..."
 def image_name = 'fedora'
 def build_root = "Dockerfiles/${image_name}"
 def credentials = [usernamePassword(credentialsId: 'contra-sample-project-joejstuart-github',
-                                                usernameVariable: 'DOCKER_USERNAME',
-                                                passwordVariable: 'DOCKER_PASSWORD')]
+                                                usernameVariable: 'USERNAME',
+                                                passwordVariable: 'PASSWORD')]
 
 
 podTemplate = [containers: containers,
